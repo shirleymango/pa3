@@ -73,7 +73,7 @@ def simulatedAnnealing(A, max_iter):
         randomlist = random.sample(range(0, len(A)), 2)
         index1 = randomlist[0]
         index2 = randomlist[1]
-        [index1] = -1*smallestlist[index1]
+        neighborS[index1] = -1*smallestlist[index1]
         prob = random.random()
         if(prob < 0.5):
             neighborS[index2] = -1*smallestlist[index2]
