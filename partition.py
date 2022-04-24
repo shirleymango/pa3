@@ -79,7 +79,7 @@ def hillClimbing(A, max_iter):
         if newRes < bestRes:
             bestRes = newRes
             solution = newS
-    return solution
+    return bestRes
 
 def simulatedAnnealing():
     return 0
