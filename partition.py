@@ -41,45 +41,23 @@ def repeatRandom(A, max_iter):
     return residue
 
 def hillClimbing(A, max_iter):
-    solution = []
-    l = len(A)
-    # generate random solution
-    s = []
-    sum1 = 0
-    sum2 = 0
-    for j in range(l):
-        rand = random()
-        if rand < 0.5:
-            sum1 += A[j]
-            s[j] = -1
-        else:
-            sum2 += A[j]
-            s[j] = 1
-    bestRes = abs(sum1-sum2)
-    solution = s
-
-    for i in range(max_iter):
-        # generate a random neighbor of S (a neighbor differs from S in either one or two places)
-        rand = random()
-        newS = s
-        if rand < 0.5:
-            # differ in one place
-            index = random.randint(0, l)
-            newS[index] = newS[index]*-1
-        else:
-            #differ in two places
-            index1 = random.randint(0, l)
-            index2 = index1
-            while index1 == index2:
-                index2 = random.randint(0, l)
-            newS[index1] = newS[index1]*-1
-            newS[index2] = newS[index2]*-1
-        # calculate new residue
-        newRes = calcRes(A, newS)
-        if newRes < bestRes:
-            bestRes = newRes
-            solution = newS
-    return bestRes
+    S = []
+    for j in range(len(A)):
+        S.append(A[j] if random.random() < 0.5 else -A[j])
+    residue = abs(sum(S))
+    for i in range(iter):
+        newS = S.copy()
+        randomlist = random.sample(range(0, len(A)), 2)
+        index1 = randomlist[0]
+        index2 = randomlist[1]
+        newS[index1] = -1*S[index1]
+        prob = random.random()
+        if(prob < 0.5):
+            newS[index2] = -1*S[index2]
+        newRes = abs(sum(newS))
+        if(newRes<residue):
+            residue = newRes
+    return residue
 
 def simulatedAnnealing():
     return 0
