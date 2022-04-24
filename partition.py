@@ -101,7 +101,6 @@ def simulatedAnnealing():
     return 0
 
 # prepartitioning
-
 def prepartitioning(A, P):
     newA = []
     n = len(P)
@@ -176,20 +175,20 @@ def main():
     for line in lines:
         given_seq.append(int(line))
     if alg_code == 0:
-        return kk(given_seq)
+        print(kk(given_seq))
     elif alg_code == 1:
-        return repeatRandom(given_seq, 25000)
+        print(repeatRandom(given_seq, 25000))
     elif alg_code == 2:
-        return hillClimbing(given_seq, 25000)
+        print(hillClimbing(given_seq, 25000))
     elif alg_code == 3:
         # simulated annealing
-        return 0
+        print(0)
     elif alg_code == 11:
         # prepartitioned repeated random
-        return 0
+        print(0)
     elif alg_code == 12:
         # prepartitioned hill clmbing
-        return 0
+        print(0)
     elif alg_code == 13:
         # prepartitioned sim annealing
-        return 0
+        print(0)
