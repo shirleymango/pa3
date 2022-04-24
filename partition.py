@@ -24,40 +24,21 @@ def kk(A):
     return abs(seq[0])
 
 def repeatRandom(A, max_iter):
-    l = len(A)
     # random solution S
-    s = []
-    sum1 = 0
-    sum2 = 0
-    for j in range(l):
-            rand = random()
-            if rand < 0.5:
-                sum1 += A[j]
-                s[j] = -1
-            else:
-                sum2 += A[j]
-                s[j] = 1
-    bestRes = abs(sum1-sum2)
-    solution = s
-    
+    S = []
+    for j in range(len(A)):
+        S.append(A[j] if random.random() < 0.5 else -A[j])
+    residue = abs(sum(S))
     for i in range(max_iter):
         # generating a new potential solution
-        for j in range(l):
-            rand = random()
-            if rand < 0.5:
-                sum1 += A[j]
-                s[j] = -1
-            else:
-                sum2 += A[j]
-                s[j] = 1
-        # calculate new res
-        newRes = abs(sum1-sum2)
-
-        # update best res
-        if newRes < bestRes:
-            bestRes = newRes
-            solution = s
-    return solution
+        newS = []
+        for j in range(len(A)):
+            newS.append(A[j] if random.random() < 0.5 else -A[j])
+        newRes = abs(sum(newS))
+        if(newRes<residue):
+            residue = newRes
+    #return smallestlist, [m/n for m, n in zip(smallestlist, seq)]
+    return residue
 
 def hillClimbing(A, max_iter):
     solution = []
