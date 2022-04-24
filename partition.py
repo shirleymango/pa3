@@ -40,6 +40,23 @@ def repeatRandom(A, max_iter):
     #return smallestlist, [m/n for m, n in zip(smallestlist, seq)]
     return residue
 
+def repeatRandomPart(A, max_iter):
+    # random solution S
+    S = []
+    for j in range(len(A)):
+        S.append(A[j] if random.random() < 0.5 else -A[j])
+    residue = abs(sum(S))
+    for i in range(max_iter):
+        # generating a new potential solution
+        newS = []
+        for j in range(len(A)):
+            newS.append(A[j] if random.random() < 0.5 else -A[j])
+        newRes = abs(sum(newS))
+        if(newRes<residue):
+            residue = newRes
+    #return smallestlist, [m/n for m, n in zip(smallestlist, seq)]
+    return residue
+
 def hillClimbing(A, max_iter):
     S = []
     for j in range(len(A)):
@@ -91,9 +108,8 @@ def simulatedAnnealing(A, max_iter):
 
 # prepartitioning
 def prepartitioning(A, P):
-    newA = []
-    n = len(P)
-    for j in range(n):
+    newA = [0]*len(A)
+    for j in range(len(A)):
         newA[P[j]] = newA[P[j]] + A[j]
     return newA
 
