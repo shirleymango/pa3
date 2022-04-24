@@ -45,7 +45,7 @@ def hillClimbing(A, max_iter):
     for j in range(len(A)):
         S.append(A[j] if random.random() < 0.5 else -A[j])
     residue = abs(sum(S))
-    for i in range(iter):
+    for i in range(max_iter):
         newS = S.copy()
         randomlist = random.sample(range(0, len(A)), 2)
         index1 = randomlist[0]
