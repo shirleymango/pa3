@@ -59,8 +59,35 @@ def hillClimbing(A, max_iter):
             residue = newRes
     return residue
 
-def simulatedAnnealing():
-    return 0
+def simulatedAnnealing(A, max_iter):
+    # random solution S
+    S = []
+    for j in range(len(A)):
+        S.append(A[j] if random.random() < 0.5 else -A[j])
+    smallest = abs(sum(S))
+    smallestlist = S 
+    smallest_double = smallest
+    for i in range(max_iter):
+        # neighbor S
+        neighborS = smallestlist.copy()
+        randomlist = random.sample(range(0, len(A)), 2)
+        index1 = randomlist[0]
+        index2 = randomlist[1]
+        [index1] = -1*smallestlist[index1]
+        prob = random.random()
+        if(prob < 0.5):
+            neighborS[index2] = -1*smallestlist[index2]
+        res = abs(sum(neighborS))
+        if(res<smallest):
+            smallest = res
+            smallestlist = neighborS
+        else:
+            if random.random() < math.exp(-(res-smallest)/T(i)):
+                smallest = res
+                smallestlist = neighborS
+        if(res<smallest_double):
+            smallest_double = res
+    return smallest_double
 
 # prepartitioning
 def prepartitioning(A, P):
@@ -147,7 +174,7 @@ def main():
         print(hillClimbing(given_seq, 25000))
     elif alg_code == 3:
         # simulated annealing
-        print(0)
+        print(simulatedAnnealing(given_seq, 25000))
     elif alg_code == 11:
         # prepartitioned repeated random
         print(repeatRandom(prepartitioning(given_seq), 25000))
