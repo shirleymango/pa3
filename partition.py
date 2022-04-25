@@ -116,6 +116,35 @@ def simulatedAnnealing(A, max_iter):
             smallest_double = res
     return smallest_double
 
+def simulatedAnnealingPart(A, max_iter):
+    P = generateP(A)
+    smallestlist = prepartitioning(A, P)
+    smallest = kk(smallestlist)
+    s_double_prime = smallestlist
+    smallest_double = smallest
+    for i in range(max_iter):
+        newP = P.copy()
+        check = True
+        while(check):
+            rand_j = random.randrange(len(A))
+            rand_i = random.randrange(len(A))
+            if(P[rand_i]!=rand_j):
+                P[rand_i]=rand_j
+                check=False
+        res = kk(prepartitioning(A,newP))
+        if(res<smallest):
+            smallest = res
+            smallestlist = prepartitioning(A,newP)
+        else:
+            if random.random() < math.exp(-(res-smallest)/T(i)):
+                smallest = res
+                smallestlist = prepartitioning(A,newP)
+        if(res<smallest_double):
+            smallest_double = res
+            s_double_prime = prepartitioning(A,newP)
+    #return smallestlist, [m/n for m, n in zip(smallestlist, seq)]
+    return smallest_double
+
 # prepartitioning
 def prepartitioning(A, P):
     n = len(A)
@@ -217,7 +246,7 @@ def main():
         print(hillClimbingPart(given_seq, 25000))
     elif alg_code == 13:
         # prepartitioned sim annealing
-        print(0)
+        print(simulatedAnnealingPart(given_seq, 25000))
 
 if __name__ == "__main__":
     main()
