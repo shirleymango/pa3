@@ -214,7 +214,7 @@ def main():
         print(repeatRandomPart(given_seq, 25000))
     elif alg_code == 12:
         # prepartitioned hill clmbing
-        print(hillClimbing(prepartitioning(given_seq), 25000))
+        print(hillClimbingPart(given_seq, 25000))
     elif alg_code == 13:
         # prepartitioned sim annealing
         print(0)
