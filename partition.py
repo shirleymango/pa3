@@ -107,9 +107,16 @@ def simulatedAnnealing(A, max_iter):
     return smallest_double
 
 # prepartitioning
-def prepartitioning(A, P):
-    newA = [0]*len(A)
-    for j in range(len(A)):
+def prepartitioning(A):
+    # generating P
+    n = len(A)
+    P = []
+    for i in range(n):
+        P.append(random.randrange(n))
+    
+    # generating A
+    newA = [0]*n
+    for j in range(n):
         newA[P[j]] = newA[P[j]] + A[j]
     return newA
 
