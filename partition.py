@@ -41,9 +41,9 @@ def repeatRandom(A, max_iter):
     return residue
 
 def repeatRandomPart(A, max_iter):
-    smallest = kk(prepartitioning(A))#finds list that yields smallest residue
+    smallest = kk(prepartitioning(A, generateP(A)))#finds list that yields smallest residue
     for i in range(max_iter):
-        comp = kk(prepartitioning(A))
+        comp = kk(prepartitioning(A, generateP(A)))
         if(comp<smallest):
             smallest = comp
     return smallest
@@ -66,6 +66,25 @@ def hillClimbing(A, max_iter):
         if(newRes<residue):
             residue = newRes
     return residue
+
+def hillClimbingPart(A, max_iter):
+    P = generateP(A)
+    smallestlist = prepartitioning(A, P)
+    smallest = kk(smallestlist)
+    for i in range(max_iter):
+        newP = P.copy()
+        check = True
+        while(check):
+            rand_j = random.randrange(len(A))
+            rand_i = random.randrange(len(A))
+            if(P[rand_i]!=rand_j):
+                P[rand_i]=rand_j
+                check=False
+        comp = kk(prepartitioning(A, newP))
+        if(comp<smallest):
+            smallest = comp
+            smallestlist = prepartitioning(A, newP)
+    return smallest
 
 def simulatedAnnealing(A, max_iter):
     # random solution S
@@ -98,18 +117,19 @@ def simulatedAnnealing(A, max_iter):
     return smallest_double
 
 # prepartitioning
-def prepartitioning(A):
-    # generating P
+def prepartitioning(A, P):
     n = len(A)
-    P = []
-    for i in range(n):
-        P.append(random.randrange(n))
-    
-    # generating A
     newA = [0]*n
     for j in range(n):
         newA[P[j]] = newA[P[j]] + A[j]
     return newA
+
+def generateP(A):
+    n = len(A)
+    P = []
+    for i in range(n):
+        P.append(random.randrange(n))
+    return P
 
     # MAX HEAP DATA STRUCTURE
     # defining a class max_heap for the heap data structure
